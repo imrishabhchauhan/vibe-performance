@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/vibe-performance.svg)](https://www.npmjs.com/package/vibe-performance)
 [![license](https://img.shields.io/npm/l/vibe-performance.svg)](./LICENSE)
 
-**A discovery-first, DSA-grounded performance & scalability skill for AI coding agents.** Current release: `v1.0.1`.
+**A discovery-first, DSA-grounded performance & scalability skill for AI coding agents.** Current release: `v1.0.2`.
 
 Works with Kiro, Cursor, Claude Code, Windsurf, GitHub Copilot, and any other agentic coding tool that reads project-level instruction files. One command installs it into whichever tool you're already using.
 
@@ -17,6 +17,7 @@ Works with Kiro, Cursor, Claude Code, Windsurf, GitHub Copilot, and any other ag
 - [The 7 phases](#the-7-phases)
 - [Non-negotiables](#non-negotiables)
 - [FAQ](#faq)
+- [Changelog](#changelog)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -171,6 +172,12 @@ No. `update` only refreshes the installed skill copies (the methodology itself).
 No. It's written to be stack-agnostic at the pattern level (a missing index is a missing index anywhere) and stack-specific at the implementation level (Supabase vs. RDS get different concrete steps where they actually differ).
 
 ---
+
+## Changelog
+
+**1.0.2** — Fixes a broken GitHub URL: `package.json`, `SKILL.md`'s metadata frontmatter, and the CLI's help text pointed to `github.com/rishabhchauhan/vibe-performance` (missing the leading `i`, a 404), corrected to `imrishabhchauhan`. Adds a `bugs` URL to `package.json`. Restructures README with badges and a table of contents. No skill behaviour changed.
+
+**1.0.1 and earlier** — See [GitHub releases](https://github.com/imrishabhchauhan/vibe-performance/releases) and commit history for the initial release.
 
 ## Contributing
 
