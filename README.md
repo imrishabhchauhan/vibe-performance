@@ -1,8 +1,24 @@
 # Vibe Performance
 
-**A discovery-first, DSA-grounded performance & scalability skill for AI coding agents.**
+[![npm version](https://img.shields.io/npm/v/vibe-performance.svg)](https://www.npmjs.com/package/vibe-performance)
+[![license](https://img.shields.io/npm/l/vibe-performance.svg)](./LICENSE)
+
+**A discovery-first, DSA-grounded performance & scalability skill for AI coding agents.** Current release: `v1.0.1`.
 
 Works with Kiro, Cursor, Claude Code, Windsurf, GitHub Copilot, and any other agentic coding tool that reads project-level instruction files. One command installs it into whichever tool you're already using.
+
+## Contents
+
+- [Why this exists](#why-this-exists)
+- [What it actually is](#what-it-actually-is)
+- [Who it's for](#who-its-for)
+- [Installation](#installation)
+- [CLI reference](#cli-reference)
+- [The 7 phases](#the-7-phases)
+- [Non-negotiables](#non-negotiables)
+- [FAQ](#faq)
+- [Contributing](#contributing)
+- [License](#license)
 
 ```bash
 pnpm dlx vibe-performance init
@@ -158,12 +174,8 @@ No. It's written to be stack-agnostic at the pattern level (a missing index is a
 
 ## Contributing
 
-Issues and PRs are welcome once this is public on GitHub. If you've found a pattern that's genuinely missing from the steering files, or a recommendation that's gone stale against a library's current docs, that's exactly the kind of contribution this project needs.
+Issues and PRs are welcome at [github.com/imrishabhchauhan/vibe-performance](https://github.com/imrishabhchauhan/vibe-performance). If you've found a pattern that's genuinely missing from the steering files, or a recommendation that's gone stale against a library's current docs, that's exactly the kind of contribution this project needs.
 
 ## License
 
-[MIT](./LICENSE) © Rishabh Chauhan
-
-## Author
-
-Created by **Rishabh Chauhan** — [linkedin.com/in/rishabhchauhan25](https://www.linkedin.com/in/rishabhchauhan25)
+[MIT](./LICENSE) © Rishabh Chauhan — [linkedin.com/in/rishabhchauhan25](https://www.linkedin.com/in/rishabhchauhan25)

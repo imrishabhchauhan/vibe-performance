@@ -33,7 +33,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rishabhchauhan/vibe-performance.git"
+    "url": "git+https://github.com/imrishabhchauhan/vibe-performance.git"
   },
-  "homepage": "https://github.com/rishabhchauhan/vibe-performance#readme"
+  "homepage": "https://github.com/imrishabhchauhan/vibe-performance#readme",
+  "bugs": {
+    "url": "https://github.com/imrishabhchauhan/vibe-performance/issues"
+  }
 }

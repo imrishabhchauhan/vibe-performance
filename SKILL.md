@@ -4,8 +4,8 @@ description: Use for ANY performance, speed, or scalability work on a full-stack
 license: MIT
 metadata:
   author: "Rishabh Chauhan"
-  homepage: "https://github.com/rishabhchauhan/vibe-performance"
-  source: "https://github.com/rishabhchauhan/vibe-performance"
+  homepage: "https://github.com/imrishabhchauhan/vibe-performance"
+  source: "https://github.com/imrishabhchauhan/vibe-performance"
 ---
 
 # Vibe Performance

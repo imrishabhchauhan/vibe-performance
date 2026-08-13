@@ -380,7 +380,7 @@ Usage:
 (Works the same with npx, pnpm dlx, or yarn dlx — shown above using ${runner}
  based on this project's lockfile or what's installed on this machine.)
 
-Learn more: https://github.com/rishabhchauhan/vibe-performance
+Learn more: https://github.com/imrishabhchauhan/vibe-performance
 `);
 }
 
