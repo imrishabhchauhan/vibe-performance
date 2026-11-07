@@ -14,7 +14,7 @@ Discovery-first, DSA-grounded performance and scalability engineering for full-s
 
 ## Before doing anything else
 
-Read `.agents/skills/vibe-performance/POWER.md` in full. It defines the mandatory 7-phase method (Environment & Memory Bootstrap → Intake → Stack Fingerprint → Measure → Diagnose → Report → Implement). Follow it in order, every engagement.
+Read [POWER.md](POWER.md) in full. It sits in this skill's own folder, next to this SKILL.md, wherever the skill is installed (a project's `.agents/skills/`, `.claude/skills/`, a user skills folder, or a Claude Code plugin). It defines the mandatory 7-phase method (Environment & Memory Bootstrap → Intake → Stack Fingerprint → Measure → Diagnose → Report → Implement). Follow it in order, every engagement.
 
 **Never edit application code as the first response to a performance request.** Phase 5 (Report) is a hard stop — the user must approve a priority order before Phase 6 (Implement) begins.
 
@@ -36,4 +36,4 @@ Read `.agents/skills/vibe-performance/POWER.md` in full. It defines the mandator
 - Never guess a library's current behavior when it matters — verify against current docs or a web search first.
 - Never make more than one unverified change at a time during implementation.
 
-Full detail, the six-layer diagnostic breakdown, the intake questionnaire, the report template, and every steering file live at `.agents/skills/vibe-performance/POWER.md` and `.agents/skills/vibe-performance/steering/`.
+Full detail, the six-layer diagnostic breakdown, the intake questionnaire, the report template, and every steering file live in [POWER.md](POWER.md) and the `steering/` folder, both next to this SKILL.md.

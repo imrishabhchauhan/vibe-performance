@@ -1,6 +1,6 @@
 {
   "name": "vibe-performance",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Discovery-first, DSA-grounded performance and scalability skill for AI coding agents (Kiro, Cursor, Claude Code, Windsurf, Copilot, and similar). One command installs it into whichever tool you're using.",
   "bin": {
     "vibe-performance": "bin/cli.js"
