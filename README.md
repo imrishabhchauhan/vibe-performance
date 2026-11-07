@@ -175,6 +175,8 @@ No. It's written to be stack-agnostic at the pattern level (a missing index is a
 
 ## Changelog
 
+**1.0.3**: `SKILL.md` now points to `POWER.md` and `steering/` by their place next to `SKILL.md`, not by the fixed `.agents/skills/vibe-performance/` path. The skill now works from any install location: `.claude/skills/`, a user skills folder, or as a Claude Code plugin from the `vibe-skills` marketplace (`claude plugin marketplace add imrishabhchauhan/vibe-dev-practices`, then `claude plugin install vibe-performance@vibe-skills`). No method change.
+
 **1.0.2** — Fixes a broken GitHub URL: `package.json`, `SKILL.md`'s metadata frontmatter, and the CLI's help text pointed to `github.com/rishabhchauhan/vibe-performance` (missing the leading `i`, a 404), corrected to `imrishabhchauhan`. Adds a `bugs` URL to `package.json`. Restructures README with badges and a table of contents. No skill behaviour changed.
 
 **1.0.1 and earlier** — See [GitHub releases](https://github.com/imrishabhchauhan/vibe-performance/releases) and commit history for the initial release.

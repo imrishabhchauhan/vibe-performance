@@ -1,0 +1,13 @@
+{
+  "name": "vibe-performance",
+  "displayName": "Vibe Performance",
+  "version": "1.0.3",
+  "description": "Discovery-first, DSA-grounded performance and scalability skill: asks, measures a real baseline, and reports before it edits.",
+  "author": {
+    "name": "Rishabh Chauhan"
+  },
+  "homepage": "https://github.com/imrishabhchauhan/vibe-performance",
+  "repository": "https://github.com/imrishabhchauhan/vibe-performance",
+  "license": "MIT",
+  "keywords": ["agent-skill", "performance", "scalability", "nextjs", "supabase", "database"]
+}
