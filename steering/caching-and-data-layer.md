@@ -2,6 +2,38 @@
 
 Caching is the technique that turns "fast for the first user, slow for every subsequent one" into "computed once, served instantly for everyone." It's also the technique most likely to be misused — a wrong TTL or a missed invalidation creates a correctness bug that's worse than the slowness it was meant to fix. Every recommendation here comes with an explicit invalidation story; a cache without one is a bug waiting to happen.
 
+## Before adding a cache: audit the ones you already have
+
+A cache is the last fix, not the first. It makes slow work look fast without making it fast, and it adds a second copy of the data that can go wrong. Redesign first (fix the query, add the index, batch the calls, change the data layout; see `cpu-hot-loops-and-data-layout.md` for CPU-bound loops), and cache last.
+
+**Step 1: list every cache that already exists.** Search the code and the config for all of these:
+- in-memory maps, module-level variables and memoization (`memoize`, `lru-cache`, `useMemo` used as a data cache)
+- Redis or a similar store
+- framework data caches (for example the Next.js data cache; version-sensitive, verify first)
+- HTTP and CDN caching (`Cache-Control` headers, CDN rules)
+- client query caches (TanStack Query, SWR: check `staleTime` and the cache lifetime)
+
+**Step 2: for each one, record these five things** in the report:
+
+| Question | Why it matters |
+|---|---|
+| What slow thing does it hide? | A cache in front of an N+1 query hides the N+1. Fix the query and the cache may not be needed. |
+| How is it invalidated? | No invalidation path means stale data and a hidden correctness bug. |
+| What is its hit rate (if it can be measured)? | A low hit rate means you pay for the cache and still do the slow work. |
+| Could the underlying work be made fast instead? | If yes, flag the cache as "hiding a slow design" and put the redesign in the report. |
+| What breaks if it is removed? | If the answer is "nothing you can measure", propose removing it (after approval). |
+
+Example: a Redis key caches the dashboard stats for 5 minutes because the stats query takes 4 seconds. The query runs 40 sub-queries in a loop (an N+1). Fix: one grouped query. If it becomes fast, the cache can be deleted, and the stale-for-5-minutes bug goes with it. (Measure before and after; the timings here are only an illustration.)
+
+**When a cache is the right answer** (check all that apply):
+1. The work is still inherently expensive after redesign (a heavy aggregation, a third-party call with a rate limit or a per-call fee, a report that needs real compute).
+2. It is requested often enough that recomputing each time is wasteful.
+3. Some staleness is acceptable, and there is an explicit invalidation or TTL decision.
+4. The cache key includes every input that changes the result.
+5. Or the content is static or public and served over HTTP: a CDN is almost always right (see below).
+
+Do not delete existing caches wholesale. Flag the ones that hide a slow design, show the redesign, and let the user approve each removal.
+
 ## The caching decision, in order
 
 Before reaching for Redis, check these cheaper layers first — each is free or nearly free and often makes a dedicated cache unnecessary:

@@ -24,7 +24,7 @@ Read [POWER.md](POWER.md) in full. It sits in this skill's own folder, next to t
 1. **Intake** — ask what's slow, current scale, target scale, and cost sensitivity. If the user gives a concrete goal ("fast on low networks, scalable to 5 lakh MAU"), build a staged roadmap from it — see `steering/discovery-and-intake.md`.
 2. **Stack Fingerprint** — confirm exact versions. Research current best practices and library behavior on the web before recommending anything version-sensitive — never rely on trained-in memory alone.
 3. **Measure** — take a real baseline: multiple samples, real auth context, realistic data volume.
-4. **Diagnose** — work through Database → Caching → Frontend → Infrastructure → Auth/Realtime → Measurement layers in order. Name each finding's complexity shape (its actual Big-O behavior).
+4. **Diagnose** — work through Database → Caching → Frontend → Infrastructure → Auth/Realtime → Measurement layers in order. Name each finding's complexity shape (its actual Big-O behavior). Audit the caches that already exist before ever proposing a new one: a cache is the last fix, not the first. If a CPU profile (not a guess) shows a hot loop, load `steering/cpu-hot-loops-and-data-layout.md`.
 5. **Report** — write findings to `.vibe-performance/reports/{slug}.md` with severity, cost, effort, and reversibility per finding. **Stop and wait for explicit approval.**
 6. **Implement** — one approved change at a time, re-measuring after each. Keep the report and `.vibe-performance/STATE.md` updated in place as work proceeds — never fork into report-v2.
 
@@ -35,5 +35,6 @@ Read [POWER.md](POWER.md) in full. It sits in this skill's own folder, next to t
 - Never recommend a cost-increasing fix without saying so explicitly, even if not asked about cost.
 - Never guess a library's current behavior when it matters — verify against current docs or a web search first.
 - Never make more than one unverified change at a time during implementation.
+- Never add a cache before auditing the existing ones and ruling out a redesign.
 
 Full detail, the six-layer diagnostic breakdown, the intake questionnaire, the report template, and every steering file live in [POWER.md](POWER.md) and the `steering/` folder, both next to this SKILL.md.

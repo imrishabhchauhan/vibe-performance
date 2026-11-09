@@ -89,11 +89,14 @@ Every performance problem lives in one (or more) of these six layers. Work throu
 | Layer | Steering file | Typical smell |
 |---|---|---|
 | 1. Database & Query | `database-query-optimization.md` | Sequential awaits, missing indexes, N+1, unbounded selects, `COUNT(*)` on every request |
-| 2. Caching & Data Layer | `caching-and-data-layer.md` | No cache at all, wrong TTL, cache stampede, stale-while-revalidate missing |
+| 2. Caching & Data Layer | `caching-and-data-layer.md` | Existing caches hiding a slow design, wrong TTL, cache stampede, stale-while-revalidate missing |
 | 3. Frontend Rendering | `frontend-rendering-performance.md` | Giant JS bundle, unoptimized images, everything is a client component, no route-level splitting |
 | 4. Infrastructure & Scaling | `infrastructure-and-scaling.md` | Connection pool exhaustion, no autoscaling policy, synchronous work that should be a queue job |
 | 5. Auth & Realtime | `auth-realtime-performance.md` | Auth check that hits the DB on every request, Realtime channel fanout, no session caching |
 | 6. Measurement gaps | `measurement-and-reporting.md` | No monitoring at all, so nobody would know if a fix helped or hurt |
+| Special case: CPU-bound hot loop | `cpu-hot-loops-and-data-layout.md` | A profile (not a guess) shows time inside a loop or data transform: hash lookups, pointer chasing, arrays of objects read one field at a time |
+
+The special-case row applies only when a CPU profile shows the time is CPU-bound. Most web requests are I/O-bound; do not use it for those.
 
 For every finding, name its **complexity shape** in plain terms: is this O(1) done N times when it should be O(1) done once (batching problem)? Is this O(n) when an index makes it O(log n)? Is this O(n²) from a lookup-inside-a-loop that a `Map` fixes? Naming the shape is what turns "this feels slow" into "this is provably fixable and here's the ceiling on the fix."
 
@@ -107,7 +110,7 @@ The report must state, per finding:
 - **What's slow and why** (root cause + complexity shape)
 - **Fix approach** (with Supabase-flavor and RDS-flavor variants if the pattern differs)
 - **Expected impact** (quantified where possible — "removes 6 of 8 sequential round-trips" beats "should be faster")
-- **Cost impact** — explicitly state whether the fix is free (code-only), cheap (a new index, a cache layer), or spend-increasing (bigger instance, more replicas). Never let a "performance fix" silently become a cost increase without flagging it.
+- **Cost impact** — explicitly state whether the fix is free (code-only), cheap (a new index, or a cache layer after the cache audit), or spend-increasing (bigger instance, more replicas). Never let a "performance fix" silently become a cost increase without flagging it.
 - **Effort** (minutes / hours / requires a migration / requires infra change)
 - **Reversibility** (can this be undone in one command, or is it a one-way door)
 
@@ -116,7 +119,7 @@ Rank by (impact × how many users it affects) ÷ effort, not by whatever's most 
 ### Phase 6 — Implement (only after approval)
 
 - One change at a time. Re-measure after each. If a change doesn't move the number it was supposed to move, stop and re-diagnose — don't stack a second speculative fix on top of a first one that didn't work.
-- Prefer additive, reversible changes first (an index, a cache layer, a `Promise.all`) over invasive rewrites (a new ORM, a new hosting platform), even if the rewrite is "more correct" in theory. Reversibility is a feature.
+- Prefer additive, reversible changes first (an index, a `Promise.all`, a query fix) over invasive rewrites (a new ORM, a new hosting platform), even if the rewrite is "more correct" in theory. Reversibility is a feature. A cache layer is not a first fix: it comes only after the redesign options are ruled out and the cache audit in `steering/caching-and-data-layer.md` ("Before adding a cache") is done. Caching a slow design hides the problem instead of fixing it.
 - After implementing, distinguish **"removed load"** from **"added capacity"** in your summary to the user — a symptom going quiet because you reduced the pressure on a system is not the same as the underlying ceiling being raised. Both are valid outcomes; report which one actually happened.
 - Update the task checklist in `STATE.md` and the finding's `Status`/`Result` fields in the report together, for every fix — never let the two drift apart.
 - On closing the engagement, follow `measurement-and-reporting.md`'s closing checklist: close out `STATE.md`, log the engagement in `INDEX.md`'s history, and add anything durable to `learnings.md`.
@@ -145,6 +148,7 @@ Rank by (impact × how many users it affects) ÷ effort, not by whatever's most 
 | `steering/discovery-and-intake.md` | Starting any engagement — the intake questionnaire and auto-discovery workflow (Phase 1) |
 | `steering/database-query-optimization.md` | The bottleneck is in queries, ORM usage, or schema — the DSA-heavy core of this skill |
 | `steering/caching-and-data-layer.md` | Repeated computation/fetches that don't need to be repeated — Redis, TanStack Query, HTTP/CDN caching, Next.js data cache |
+| `steering/cpu-hot-loops-and-data-layout.md` | A CPU profile shows time inside a hot loop or data transform (parsers, report/PDF generation, large in-memory list transforms, simulations). Never for I/O-bound requests. |
 | `steering/frontend-rendering-performance.md` | Page load, bundle size, images, fonts, Core Web Vitals |
 | `steering/infrastructure-and-scaling.md` | Connection limits, autoscaling, queues/background jobs, cost-per-request math |
 | `steering/auth-realtime-performance.md` | Auth check overhead, session validation, Supabase Realtime / websocket fanout |

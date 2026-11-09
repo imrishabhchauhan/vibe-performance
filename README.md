@@ -47,7 +47,7 @@ It also treats **cost** as part of "performance," not a separate concern. A fix 
 There's no separate AI, no hidden service, no sub-agent architecture. It's:
 
 1. **A methodology document** (`POWER.md`) — a 7-phase process (Environment & Memory Bootstrap → Intake → Stack Fingerprint → Measure → Diagnose → Report → Implement).
-2. **Eight steering files** — focused reference material for each performance domain (database queries, caching, frontend rendering, infrastructure/scaling, auth & realtime, plus the intake questionnaire, environment/memory rules, and measurement/reporting standards). The agent loads only the files relevant to the diagnosed problem, not all eight at once.
+2. **Nine steering files** — focused reference material for each performance domain (database queries, caching with a cache audit, CPU hot loops and data layout, frontend rendering, infrastructure/scaling, auth & realtime, plus the intake questionnaire, environment/memory rules, and measurement/reporting standards). The agent loads only the files relevant to the diagnosed problem, not all nine at once.
 3. **A `SKILL.md`** following the open [Agent Skills standard](https://agentskills.io) — this is what makes the skill auto-trigger when you say "use Vibe Performance" or describe a slow page, instead of requiring you to manually reference a file.
 4. **A tiny installer CLI** — detects which AI tool(s) you're using and installs the skill into each one's actual discovery path.
 
@@ -174,6 +174,8 @@ No. It's written to be stack-agnostic at the pattern level (a missing index is a
 ---
 
 ## Changelog
+
+**1.0.4**: The caching guide now starts with an audit of the caches a project already has (what slow work each one hides, how it is invalidated, hit rate, whether a redesign makes it unnecessary) and treats a new cache as the last fix, not the first. `POWER.md` no longer lists a cache layer as an early quick fix. New steering file `cpu-hot-loops-and-data-layout.md` for CPU-bound hot loops found by a profiler (flat arrays, structure of arrays, bitsets, preallocation), used only when a profile points there.
 
 **1.0.3**: `SKILL.md` now points to `POWER.md` and `steering/` by their place next to `SKILL.md`, not by the fixed `.agents/skills/vibe-performance/` path. The skill now works from any install location: `.claude/skills/`, a user skills folder, or as a Claude Code plugin from the `vibe-skills` marketplace (`claude plugin marketplace add imrishabhchauhan/vibe-dev-practices`, then `claude plugin install vibe-performance@vibe-skills`). No method change.
 
