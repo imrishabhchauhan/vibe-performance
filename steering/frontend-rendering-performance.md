@@ -81,6 +81,8 @@ const inter = Inter({ subsets: ['latin'], display: 'swap' });
 ```
 Avoid loading more than 2-3 font weights/styles — each is a separate file. Variable fonts (one file, many weights) are often the better choice if the library supports it.
 
+If font files are still a large share of page weight after this, load `web-fonts.md` (subsetting, axis limits, core/extended split, pixel-diff proof).
+
 ## 4. Server Components vs Client Components — don't ship what doesn't need to run in the browser
 
 **Shape:** marking a component `"use client"` when it doesn't need interactivity ships its JS (and its dependencies' JS) to the browser for no reason — every unnecessary client component is bytes that didn't need to be sent.

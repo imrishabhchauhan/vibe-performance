@@ -94,6 +94,7 @@ Every performance problem lives in one (or more) of these six layers. Work throu
 | 4. Infrastructure & Scaling | `infrastructure-and-scaling.md` | Connection pool exhaustion, no autoscaling policy, synchronous work that should be a queue job |
 | 5. Auth & Realtime | `auth-realtime-performance.md` | Auth check that hits the DB on every request, Realtime channel fanout, no session caching |
 | 6. Measurement gaps | `measurement-and-reporting.md` | No monitoring at all, so nobody would know if a fix helped or hurt |
+| Special case: heavy web fonts | `web-fonts.md` | Font files are a large share of page bytes, or LCP text waits on a font; the site uses a small part of each font |
 | Special case: CPU-bound hot loop | `cpu-hot-loops-and-data-layout.md` | A profile (not a guess) shows time inside a loop or data transform: hash lookups, pointer chasing, arrays of objects read one field at a time |
 
 The special-case row applies only when a CPU profile shows the time is CPU-bound. Most web requests are I/O-bound; do not use it for those.
@@ -150,6 +151,7 @@ Rank by (impact × how many users it affects) ÷ effort, not by whatever's most 
 | `steering/caching-and-data-layer.md` | Repeated computation/fetches that don't need to be repeated — Redis, TanStack Query, HTTP/CDN caching, Next.js data cache |
 | `steering/cpu-hot-loops-and-data-layout.md` | A CPU profile shows time inside a hot loop or data transform (parsers, report/PDF generation, large in-memory list transforms, simulations). Never for I/O-bound requests. |
 | `steering/frontend-rendering-performance.md` | Page load, bundle size, images, fonts, Core Web Vitals |
+| `steering/web-fonts.md` | Measured font bytes are a large share of page weight, or LCP text waits on a font file, and the basics in the frontend guide are done. Never when fonts are small. |
 | `steering/infrastructure-and-scaling.md` | Connection limits, autoscaling, queues/background jobs, cost-per-request math |
 | `steering/auth-realtime-performance.md` | Auth check overhead, session validation, Supabase Realtime / websocket fanout |
 | `steering/measurement-and-reporting.md` | Deciding what to measure, how, and how to write/maintain the living report (Phases 3-6) |
